@@ -24,7 +24,7 @@ export default function RootLayout({
       <body
         className={cn(
           getFontFamilyClassName("inter"),
-          "bg-bodySecondary text-textPrimary",
+          "bg-bodySecondary text-text100",
         )}>
         {children}
         <StoreSetter theme={theme} />

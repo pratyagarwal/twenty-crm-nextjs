@@ -9,6 +9,7 @@ export interface IDrawerProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   isBackgroundInteractive?: boolean;
+  isEscapeKeyDisabled?: boolean;
   classNames?: {
     content: string;
   };
@@ -19,6 +20,7 @@ export const Drawer: FC<PropsWithChildren<IDrawerProps>> = ({
   open,
   onOpenChange,
   isBackgroundInteractive,
+  isEscapeKeyDisabled,
   classNames,
   children,
 }) => {
@@ -40,6 +42,7 @@ export const Drawer: FC<PropsWithChildren<IDrawerProps>> = ({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className={"fixed inset-0 bg-[#000] opacity-[0.2]"} />
         <DialogPrimitive.Content
+          onEscapeKeyDown={(e) => isEscapeKeyDisabled && e.preventDefault()}
           onInteractOutside={(e) => isBackgroundInteractive && e.preventDefault()}
           className={cn(
             "fixed left-0 top-0 z-[999999] outline-none data-[state=closed]:animate-slideOut data-[state=open]:animate-slideIn",

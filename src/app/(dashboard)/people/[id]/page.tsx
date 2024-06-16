@@ -3,7 +3,7 @@ import { Page as ProspectPage } from "~modules/people/views/prospects/routes/[id
 
 interface IPageProps {
   params: {
-    id: number;
+    id: string;
   };
 }
 

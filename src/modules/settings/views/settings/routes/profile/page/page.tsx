@@ -9,7 +9,7 @@ export const Page: FC = () => {
       }>
       <div
         className={
-          "my-3 mr-3 h-[calc(100%-24px)] w-full rounded-md border border-solid border-[#292929] bg-bodyPrimary pl-2"
+          "my-3 mr-3 h-[calc(100%-24px)] w-full rounded-md border border-solid border-border100 bg-bodyPrimary pl-2"
         }>
         Profile
       </div>

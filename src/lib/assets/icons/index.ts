@@ -14,3 +14,4 @@ export * from "./map-icon";
 export * from "./calendar-icon";
 export * from "./suitcase-icon";
 export * from "./arrow-left-icon";
+export * from "./check-icon";

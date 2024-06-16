@@ -44,6 +44,7 @@ export const SettingsSidenav: FC = () => {
         updateDrawerState(DrawerId.SETTINGS_SIDNEAV, { open: _open })
       }
       isBackgroundInteractive={true}
+      isEscapeKeyDisabled={true}
       classNames={{
         content: "w-[40vw]",
       }}>
@@ -57,21 +58,18 @@ export const SettingsSidenav: FC = () => {
             <ArrowLeftIcon
               color={
                 [AppTheme.LIGHT, AppTheme.PURPLE_LIGHT].includes(theme)
-                  ? "#EBEBEB"
+                  ? "#666666"
                   : "#B3B3B3"
               }
             />
-            <p className={"text-[16px] font-bold text-textPrimary"}>Settings</p>
+            <p className={"text-[16px] font-bold text-text100"}>Settings</p>
           </Link>
           <div className={"flex flex-col gap-9"}>
             {navSections.map((navSection, sectionIndex) => {
               return (
                 <div key={`nav-section-${sectionIndex}`} className={"w-full"}>
                   {navSection.label ? (
-                    <h3
-                      className={
-                        "pb-1 pl-1 text-[11px] font-semibold text-textSecondary"
-                      }>
+                    <h3 className={"pb-1 pl-1 text-[11px] font-semibold text-text300"}>
                       {navSection.label}
                     </h3>
                   ) : null}
