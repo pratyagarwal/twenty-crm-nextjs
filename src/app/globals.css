@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 html {
-    scroll-behavior: smooth !important;
-    font-size: 16px;
+  scroll-behavior: smooth !important;
+  font-size: 16px;
 }
 
 html,
@@ -88,43 +88,43 @@ time,
 mark,
 audio,
 video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: inherit;
-    font-family: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
 }
 
 :after,
 :before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 * {
-    box-sizing: border-box;
-    touch-action: pan-x pan-y;
+  box-sizing: border-box;
+  touch-action: pan-x pan-y;
 }
 
 div {
-    display: block;
+  display: block;
 }
 
 body {
-    line-height: normal;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    text-size-adjust: 100%;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
 }
 
 html,
 body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }

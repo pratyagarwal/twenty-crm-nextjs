@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {getFontFamilyClassName} from "~lib/fonts";
-import {cn} from "~lib/utils";
-
-
+import { cookies } from "next/headers";
+import { getFontFamilyClassName } from "~lib/fonts";
+import { cn } from "~lib/utils";
+import StoreSetter from "~lib/theme/components/store-setter";
+import { AppTheme } from "~lib/theme/constants";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,9 +16,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme: AppTheme =
+    (cookies().get("__theme__")?.value as AppTheme) ?? AppTheme.DARK;
+
   return (
-    <html lang="en">
-      <body className={cn(getFontFamilyClassName("inter"), "bg-red-50")}>{children}</body>
+    <html lang="en" data-theme={theme}>
+      <body
+        className={cn(
+          getFontFamilyClassName("inter"),
+          "bg-bodySecondary text-textPrimary",
+        )}>
+        {children}
+        <StoreSetter theme={theme} />
+      </body>
     </html>
   );
 }

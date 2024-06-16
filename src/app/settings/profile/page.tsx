@@ -1,7 +1,8 @@
 import { FC } from "react";
+import { Page as ProfilePage } from "~modules/settings/views/settings/routes/profile";
 
 const Page: FC = () => {
-  return <>Profile</>;
+  return <ProfilePage />;
 };
 
 export default Page;

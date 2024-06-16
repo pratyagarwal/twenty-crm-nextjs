@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Page as ProspectPage } from "~modules/people/views/prospects/routes/[id]";
 
 interface IPageProps {
   params: {
@@ -7,7 +8,7 @@ interface IPageProps {
 }
 
 const Page: FC<IPageProps> = ({ params: { id } }) => {
-  return <>{`Prospect ${id}`}</>;
+  return <ProspectPage id={id} />;
 };
 
 export default Page;

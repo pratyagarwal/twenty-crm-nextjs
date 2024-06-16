@@ -1,7 +1,5 @@
 import { FC } from "react";
 
-const Page: FC = () => {
+export const Page: FC = () => {
   return <>Tasks</>;
 };
-
-export default Page;

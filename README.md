@@ -113,7 +113,7 @@ Then open up <http://localhost:3000>.
 
 ### Deployment
 
-Please deploy your assessment to Vercel using the command line interface. You should be able to sign up for a free account and do all this for free. 
+Please deploy your assessment to Vercel using the command line interface. You should be able to sign up for a free account and do all this for free.
 
 Be sure that your project's public URL can be viewed by anyone. You don't need to use a custom domain -- just deploy at `[something].vercel.app`.
 

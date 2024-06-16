@@ -1,4 +1,4 @@
-import { inter} from "~lib/fonts/base";
+import { inter } from "~lib/fonts/base";
 
 export const getFontFamilyClassName = (fontFamily?: string) => {
   switch (fontFamily) {

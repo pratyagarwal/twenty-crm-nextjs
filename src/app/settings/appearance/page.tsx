@@ -1,9 +1,8 @@
-"use client"
-
 import { FC } from "react";
+import { Page as AppearancePage } from "~modules/settings/views/settings/routes/appearance";
 
 const Page: FC = () => {
-  return <>Appearance</>;
+  return <AppearancePage />;
 };
 
 export default Page;
