@@ -18,7 +18,7 @@ export const Page: FC = () => {
       }>
       <div
         className={
-          "my-3 mr-3 h-[calc(100%-24px)] w-full rounded-md border-solid border-border100 bg-bodyPrimary pl-2"
+          "my-3 mr-3 h-[calc(100%-24px)] w-full rounded-md border border-solid border-border100 bg-bodyPrimary pl-2"
         }>
         <div className={"flex w-full flex-col gap-8 p-8"}>
           <h2 className={"text-[16px] font-semibold text-text400"}>Appearance</h2>

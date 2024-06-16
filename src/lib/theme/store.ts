@@ -6,12 +6,7 @@ export interface ThemeStoreState {
   theme: AppTheme;
 }
 
-export interface ThemeStoreActions {
-  setState: (data: Partial<ThemeStoreState>, cb?: () => void) => void;
-  reset: (cb?: () => void) => void;
-}
-
-export const themeStore = createInMemoryStore<ThemeStoreState, ThemeStoreActions>({
+export const themeStore = createInMemoryStore<ThemeStoreState>({
   name: "theme",
   initialState: { theme: AppTheme.LIGHT },
 });

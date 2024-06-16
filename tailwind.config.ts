@@ -43,6 +43,7 @@ const config = {
         text300: "#B3B3B3",
         text400: "#999999",
         border100: "#EBEBEB",
+        bgHover100: "#0000000A",
       },
       dark: {
         bodyPrimary: "#171717",
@@ -52,6 +53,7 @@ const config = {
         text300: "#666666",
         text400: "#818181",
         border100: "#333333",
+        bgHover100: "#FFFFFF0F",
       },
       purpleLight: {
         bodyPrimary: "#FFFFFF",
@@ -61,6 +63,7 @@ const config = {
         text300: "#B3B3B3",
         text400: "#999999",
         border100: "#EBEBEB",
+        bgHover100: "#0000000A",
       },
       purpleDark: {
         bodyPrimary: "#1C1C2C",
@@ -70,6 +73,7 @@ const config = {
         text300: "#666666",
         text400: "#818181",
         border100: "#333333",
+        bgHover100: "#FFFFFF0F",
       },
     }),
   ],

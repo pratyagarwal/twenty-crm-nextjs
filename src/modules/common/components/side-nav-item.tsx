@@ -15,15 +15,8 @@ export const SideNavItem: FC<{
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "flex cursor-pointer flex-row gap-2 rounded p-1",
-        [AppTheme.LIGHT, AppTheme.PURPLE_LIGHT].includes(theme)
-          ? "hover:bg-[#0000000A]"
-          : "hover:bg-[#FFFFFF0F]",
-        isActive
-          ? [AppTheme.LIGHT, AppTheme.PURPLE_LIGHT].includes(theme)
-            ? "bg-[#0000000A]"
-            : "bg-[#FFFFFF0F]"
-          : "",
+        "flex cursor-pointer flex-row gap-2 rounded p-1 hover:bg-bgHover100",
+        isActive ? "bg-bgHover100" : "",
       )}>
       <Icon
         size={"16"}
@@ -37,7 +30,12 @@ export const SideNavItem: FC<{
               : "#B3B3B3"
         }
       />
-      <p className={cn("text-[13px] font-medium", `${hovered ? "text-text200" : ""}`)}>
+      <p
+        className={cn(
+          "text-[13px] font-medium",
+          `${hovered ? "text-text200" : ""}`,
+          isActive ? "text-text200" : "",
+        )}>
         {itemText}
       </p>
     </div>

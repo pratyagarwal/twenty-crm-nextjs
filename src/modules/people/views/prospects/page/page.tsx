@@ -22,12 +22,9 @@ export const Page: FC = () => {
       <div className={"h-[60px] pt-5"}>
         {!open ? (
           <button
-            className={cn(
-              "flex items-center justify-center rounded p-1 outline-none transition-all duration-200 ease-in",
-              [AppTheme.LIGHT, AppTheme.PURPLE_LIGHT].includes(theme)
-                ? "hover:bg-[#0000000A]"
-                : "hover:bg-[#FFFFFF0F]",
-            )}
+            className={
+              "flex items-center justify-center rounded p-1 outline-none transition-all duration-200 ease-in hover:bg-bgHover100"
+            }
             onClick={() => {
               updateDrawerState(DrawerId.PRIMARY_SIDENAV, { open: true });
             }}>

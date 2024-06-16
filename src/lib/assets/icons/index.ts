@@ -15,3 +15,6 @@ export * from "./calendar-icon";
 export * from "./suitcase-icon";
 export * from "./arrow-left-icon";
 export * from "./check-icon";
+export * from "./file-upload-icon";
+export * from "./upload-icon";
+export * from "./trash-icon";
