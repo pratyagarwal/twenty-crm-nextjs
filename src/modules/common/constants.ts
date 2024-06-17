@@ -1,11 +1,5 @@
 export enum DrawerId {
   PRIMARY_SIDENAV = "primarySidenav",
-  SETTINGS_SIDNEAV = "settingsSidenav",
+  SETTINGS_SIDENAV = "settingsSidenav",
   COMMAND_PALLETE = "commandPallete",
-}
-
-export enum UserAction {
-  ADD,
-  EDIT,
-  REMOVE,
 }

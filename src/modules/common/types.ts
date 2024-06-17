@@ -1,11 +1,10 @@
-export interface IUser {
+export interface IAuthUser {
   id: string;
   firstName: string;
   lastName: string;
   profile: File | null;
   email: string;
   password: string;
-  isAuthUser?: boolean;
 }
 
 export interface IWorkspace {

@@ -43,7 +43,8 @@ export const Page: FC = () => {
         className={
           "mr-3 h-[calc(100%-72px)] rounded-md border border-solid border-border100 bg-bodyPrimary pl-2"
         }>
-        People
+        <div className={"h-[40px] w-full"}></div>
+        <div>table</div>
       </div>
     </div>
   );

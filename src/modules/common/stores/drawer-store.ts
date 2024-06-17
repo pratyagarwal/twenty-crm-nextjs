@@ -25,7 +25,7 @@ export const drawerStore = createInMemoryStore<IDrawerStoreState, IDrawerStoreAc
   initialState: {
     State: {
       [DrawerId.PRIMARY_SIDENAV]: { open: true },
-      [DrawerId.SETTINGS_SIDNEAV]: { open: true },
+      [DrawerId.SETTINGS_SIDENAV]: { open: true },
       [DrawerId.COMMAND_PALLETE]: { open: false },
     },
   },

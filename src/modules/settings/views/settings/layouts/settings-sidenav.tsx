@@ -18,7 +18,7 @@ export const SettingsSidenav: FC = () => {
   );
   const { theme } = themeStore();
   const { getOrCreateDrawerState, updateDrawerState } = drawerStore();
-  const { open } = getOrCreateDrawerState(DrawerId.SETTINGS_SIDNEAV);
+  const { open } = getOrCreateDrawerState(DrawerId.SETTINGS_SIDENAV);
 
   const navSections = [
     {
@@ -41,7 +41,7 @@ export const SettingsSidenav: FC = () => {
       trigger={<div />}
       open={open}
       onOpenChange={(_open) =>
-        updateDrawerState(DrawerId.SETTINGS_SIDNEAV, { open: _open })
+        updateDrawerState(DrawerId.SETTINGS_SIDENAV, { open: _open })
       }
       isBackgroundInteractive={true}
       isEscapeKeyDisabled={true}

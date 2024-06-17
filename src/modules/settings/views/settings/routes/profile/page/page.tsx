@@ -1,37 +1,22 @@
 "use client";
 import Image from "next/image";
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FileUploadIcon, TrashIcon, UploadIcon } from "~lib/assets";
 import { AppTheme, themeStore } from "~lib/theme";
 import { cn } from "~lib/utils";
-import { UserAction } from "~modules/common/constants";
-import { workspaceUsersStore } from "~modules/common/stores/workspace-users-store";
-import { IUser } from "~modules/common/types";
+import { authStore } from "~modules/common/stores/auth-store";
+import { IAuthUser } from "~modules/common/types";
 
 export const Page: FC = () => {
   const { theme } = themeStore();
-  const { users, setUsers } = workspaceUsersStore();
+  const { authUser, setAuthUser } = authStore();
   const isFirstRender = useRef(true);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const authUser = useMemo(() => {
-    return users.find((user) => user.isAuthUser);
-  }, [users]);
-  const [formState, setFormState] = useState<IUser>({
-    id: authUser!.id,
-    firstName: authUser!.firstName,
-    lastName: authUser!.lastName,
-    password: authUser!.password,
-    email: authUser!.email,
-    profile: authUser!.profile,
-  });
+  const [formState, setFormState] = useState<IAuthUser>(authUser);
 
   const handlePasswordChange = useCallback(() => {
-    setUsers({
-      userId: formState.id,
-      action: UserAction.EDIT,
-      user: { password: formState.password },
-    });
-  }, [formState.id, formState.password, setUsers]);
+    setAuthUser({ password: formState.password });
+  }, [formState.password, setAuthUser]);
 
   const handleUpload = useCallback((file: File | undefined) => {
     if (file) {
@@ -42,7 +27,6 @@ export const Page: FC = () => {
   }, []);
 
   const handleDeleteUpload = useCallback(() => {
-    console.log("called");
     setFormState((state) => {
       return { ...state, profile: null };
     });
@@ -55,26 +39,18 @@ export const Page: FC = () => {
     }
     const timeout = setTimeout(() => {
       if (formState.firstName && formState.lastName) {
-        setUsers({
-          userId: formState.id,
-          action: UserAction.EDIT,
-          user: { firstName: formState.firstName, lastName: formState.lastName },
-        });
+        setAuthUser({ firstName: formState.firstName, lastName: formState.lastName });
       }
     }, 200);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [formState.firstName, formState.id, formState.lastName, setUsers]);
+  }, [formState.firstName, formState.id, formState.lastName, setAuthUser]);
 
   useEffect(() => {
-    setUsers({
-      userId: formState.id,
-      action: UserAction.EDIT,
-      user: { profile: formState.profile },
-    });
-  }, [formState.profile, setUsers, formState.id]);
+    setAuthUser({ profile: formState.profile });
+  }, [formState.profile, setAuthUser, formState.id]);
 
   return (
     <div

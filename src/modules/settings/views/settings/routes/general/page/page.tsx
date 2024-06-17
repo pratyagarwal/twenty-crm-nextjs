@@ -4,18 +4,15 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FileUploadIcon, TrashIcon, UploadIcon } from "~lib/assets";
 import { AppTheme, themeStore } from "~lib/theme";
 import { cn } from "~lib/utils";
-import { workspaceUsersStore } from "~modules/common/stores/workspace-users-store";
+import { authStore } from "~modules/common/stores/auth-store";
 import { IWorkspace } from "~modules/common/types";
 
 export const Page: FC = () => {
   const { theme } = themeStore();
-  const { workspace, setWorkspace } = workspaceUsersStore();
+  const { workspace, setWorkspace } = authStore();
   const isFirstRender = useRef(true);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [formState, setFormState] = useState<Partial<IWorkspace>>({
-    name: workspace.name,
-    profile: workspace.profile,
-  });
+  const [formState, setFormState] = useState<Partial<IWorkspace>>(workspace);
 
   const handleUpload = useCallback((file: File | undefined) => {
     if (file) {
@@ -26,7 +23,6 @@ export const Page: FC = () => {
   }, []);
 
   const handleDeleteUpload = useCallback(() => {
-    console.log("called");
     setFormState((state) => {
       return { ...state, profile: null };
     });

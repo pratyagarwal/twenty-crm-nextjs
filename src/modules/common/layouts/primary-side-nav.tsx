@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, useMemo, useState } from "react";
+import { FC, useState } from "react";
 import { BuildingIcon, CollapseLeftIcon, FiberLogo } from "~lib/assets";
 import { CheckboxIcon, SearchIcon, SettingsIcon, UserIcon } from "~lib/assets/icons";
 import { Drawer } from "~lib/components";
@@ -12,15 +12,12 @@ import { cn } from "~lib/utils";
 import { SideNavItem } from "~modules/common/components";
 import { DrawerId } from "~modules/common/constants";
 import { drawerStore } from "~modules/common/stores/drawer-store";
-import { workspaceUsersStore } from "~modules/common/stores/workspace-users-store";
+import { authStore } from "~modules/common/stores/auth-store";
 
 export const PrimarySideNav: FC = () => {
   const pathName = usePathname();
   const { theme } = themeStore();
-  const { workspace, users } = workspaceUsersStore();
-  const authUser = useMemo(() => {
-    return users.find((user) => user.isAuthUser);
-  }, [users]);
+  const { workspace, authUser } = authStore();
 
   const [selectedNavItem, setSelectedNavItem] = useState(
     pathName !== "/" ? pathName.slice(1) : "people",
@@ -147,7 +144,7 @@ export const PrimarySideNav: FC = () => {
           <p
             className={
               "text-[13px] font-medium text-text200"
-            }>{`${authUser!.firstName} ${authUser!.lastName}`}</p>
+            }>{`${authUser.firstName} ${authUser.lastName}`}</p>
         </div>
       </div>
     </Drawer>
