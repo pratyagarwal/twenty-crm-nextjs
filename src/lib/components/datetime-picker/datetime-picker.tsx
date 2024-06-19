@@ -1,5 +1,4 @@
 // noinspection BadExpressionStatementJS
-"use client";
 
 import dayjs from "dayjs";
 import { Dispatch, FC, ReactNode, SetStateAction, useRef } from "react";

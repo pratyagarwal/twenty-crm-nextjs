@@ -6,6 +6,7 @@ import { cn } from "~lib/utils";
 import StoreSetter from "~lib/theme/components/store-setter";
 import { AppTheme } from "~lib/theme/constants";
 import { CommandPallette } from "~modules/common/components/command-pallette";
+import { CreateTaskDrawerWrapper } from "~modules/tasks/layouts/create-task-drawer-wrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,6 +31,7 @@ export default function RootLayout({
         {children}
         <StoreSetter theme={theme} />
         <CommandPallette />
+        <CreateTaskDrawerWrapper />
       </body>
     </html>
   );

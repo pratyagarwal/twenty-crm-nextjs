@@ -1,6 +1,8 @@
 "use client";
+import dayjs from "dayjs";
 import { FC, useMemo, useState } from "react";
 import {
+  CalendarIcon,
   CheckIcon,
   CollapseRightIcon,
   EmailIcon,
@@ -9,6 +11,7 @@ import {
   UserIcon,
 } from "~lib/assets";
 import { Avatar } from "~lib/components/avatar";
+import { Checkbox } from "~lib/components/checkbox";
 import { AppTheme, themeStore } from "~lib/theme";
 import { cn } from "~lib/utils";
 import { getTimeFromNow } from "~lib/utils/datetime";
@@ -17,6 +20,7 @@ import { Companies, DrawerId, FieldType } from "~modules/common/constants";
 import { drawerStore } from "~modules/common/stores/drawer-store";
 import { prospectsStore } from "~modules/prospects/store";
 import { getFilterIconByName } from "~modules/prospects/utils";
+import { taskStore } from "~modules/tasks/store";
 
 export interface IPageProps {
   id: string;
@@ -25,6 +29,7 @@ export interface IPageProps {
 export const Page: FC<IPageProps> = ({ id }) => {
   const { theme } = themeStore();
 
+  const { tasks, setState: setTasksState, updateTask } = taskStore();
   const { prospects, updateProspectField } = prospectsStore();
   const { getOrCreateDrawerState, updateDrawerState } = drawerStore();
   const { open } = getOrCreateDrawerState(DrawerId.PRIMARY_SIDENAV);
@@ -130,6 +135,53 @@ export const Page: FC<IPageProps> = ({ id }) => {
     }
   };
 
+  const upcomingTasks = useMemo(() => {
+    if (tasks.length > 0) {
+      const now = dayjs();
+      return tasks.filter((task) => {
+        if (task.dueDateTime === "Invalid Date") {
+          return false;
+        }
+        const targetDate = dayjs(task.dueDateTime);
+        return (
+          targetDate.isAfter(now, "day") && !task.isCompleted && task.prospectId === id
+        );
+      });
+    }
+    return [];
+  }, [tasks, id]);
+
+  const todayTasks = useMemo(() => {
+    if (tasks.length > 0) {
+      const now = dayjs();
+      return tasks.filter((task) => {
+        if (task.dueDateTime === "Invalid Date") {
+          return false;
+        }
+        const targetDate = dayjs(task.dueDateTime);
+        return (
+          (targetDate.isSame(now, "day") || targetDate.isBefore(now, "day")) &&
+          !task.isCompleted &&
+          task.prospectId === id
+        );
+      });
+    }
+    return [];
+  }, [tasks, id]);
+
+  const unscheduledTasks = useMemo(() => {
+    if (tasks.length > 0) {
+      return tasks.filter((task) => {
+        return (
+          (task.dueDateTime === "Invalid Date" || task.dueDateTime === null) &&
+          !task.isCompleted &&
+          task.prospectId === id
+        );
+      });
+    }
+    return [];
+  }, [tasks, id]);
+
   return (
     <div
       className={cn(
@@ -172,14 +224,12 @@ export const Page: FC<IPageProps> = ({ id }) => {
             </p>
           </div>
         </div>
-        {/*<Popover*/}
-        {/*  align={"start"}*/}
-        {/*  side={"left"}*/}
-        {/*  sideOffset={10}*/}
-        {/*  trigger={*/}
         <button
+          onClick={() => {
+            updateDrawerState(DrawerId.CREATE_TASK, { open: true });
+          }}
           className={
-            "flex h-[34px] w-[34px] items-center justify-center rounded-md border border-solid border-border100 hover:bg-bgHover100"
+            "flex h-[34px] items-center justify-center gap-2 rounded-md border border-solid border-border100 hover:bg-bgHover100"
           }>
           <PlusIcon
             color={
@@ -188,47 +238,8 @@ export const Page: FC<IPageProps> = ({ id }) => {
                 : "#B3B3B3"
             }
           />
+          <p className={"text-[13px] text-text100"}> Add Task</p>
         </button>
-        {/*  }*/}
-        {/*  open={createProspectOpen}*/}
-        {/*  onOpenChange={(_open) =>*/}
-        {/*    updateDropdownState(DropdownId.CREATE_PROSPECT, {*/}
-        {/*      open: _open,*/}
-        {/*    })*/}
-        {/*  }>*/}
-        {/*  <div*/}
-        {/*    className={*/}
-        {/*      "flex h-[34px] w-[300px] items-center gap-1 bg-bodySecondary px-4"*/}
-        {/*    }>*/}
-        {/*    <input*/}
-        {/*      value={firstName}*/}
-        {/*      onChange={(e) => setFirstName(e.target.value)}*/}
-        {/*      placeholder={"First Name"}*/}
-        {/*      className={*/}
-        {/*        "h-[32px] w-[100px] bg-bodySecondary text-[13px] text-text200 outline-none"*/}
-        {/*      }*/}
-        {/*    />*/}
-        {/*    <span className={"text-[13px] text-text300"}>|</span>*/}
-        {/*    <input*/}
-        {/*      value={lastName}*/}
-        {/*      onChange={(e) => setLastName(e.target.value)}*/}
-        {/*      placeholder={"Last Name"}*/}
-        {/*      className={*/}
-        {/*        "h-[32px] w-[100px] bg-bodySecondary text-[13px] text-text200 outline-none"*/}
-        {/*      }*/}
-        {/*    />*/}
-        {/*    <button*/}
-        {/*      onClick={() => addProspect(`${firstName} ${lastName}`)}*/}
-        {/*      className={cn(*/}
-        {/*        "flex h-[20px] items-center rounded p-2 text-[13px] text-text200 hover:border-border200",*/}
-        {/*        `${firstName}${lastName}`.length*/}
-        {/*          ? "hover:bg-bgHover100"*/}
-        {/*          : "pointer-events-none opacity-40",*/}
-        {/*      )}>*/}
-        {/*      Create*/}
-        {/*    </button>*/}
-        {/*  </div>*/}
-        {/*</Popover>*/}
       </div>
       <div
         className={
@@ -314,6 +325,333 @@ export const Page: FC<IPageProps> = ({ id }) => {
         </div>
         <div className={"h-full w-[calc(100%-348px)]"}>
           <Tabs selectedTabId={selectedTabId} tabs={tabs} />
+          {selectedTabId === 1 ? (
+            <div className={"ml-6 mt-[40px]"}>
+              {todayTasks.length > 0 ? (
+                <div className={"w-full"}>
+                  <div className={"mb-[32px] flex gap-2"}>
+                    <h3 className={"text-[15px] font-bold text-text200"}>
+                      Today Tasks
+                    </h3>
+                    <p className={"font-bold text-text300"}>{todayTasks.length}</p>
+                  </div>
+                  <div
+                    className={
+                      "h-fit w-[calc(100%-48px)] overflow-hidden rounded border border-solid border-border200 bg-bodySecondary"
+                    }>
+                    {todayTasks.map((ele, index) => {
+                      const eleProspect = prospects.find(
+                        (prospect) => prospect.id === ele.prospectId,
+                      );
+                      const eleProspectName = eleProspect?.fields.find(
+                        (ele) => ele.name === "name",
+                      )?.value;
+                      return (
+                        <div
+                          onClick={() => {
+                            setTasksState({ activeTaskId: ele.id });
+                            updateDrawerState(DrawerId.CREATE_TASK, { open: true });
+                          }}
+                          key={ele.name}
+                          className={cn(
+                            "flex h-[49px] w-full items-center justify-between px-4",
+                            index !== unscheduledTasks.length - 1
+                              ? "border-b border-solid border-border200"
+                              : "",
+                          )}>
+                          <div className={"flex items-center gap-2"}>
+                            <Checkbox
+                              onClick={(e) => e.stopPropagation()}
+                              checked={ele.isCompleted}
+                              setChecked={(_check) => {
+                                updateTask(ele.id, { isCompleted: _check });
+                              }}
+                              classNames={{
+                                root: cn(
+                                  "h-[16px] w-[16px] rounded-[100%] border-text200",
+                                  ele.isCompleted ? "border-none" : "",
+                                ),
+                              }}
+                            />
+                            <p
+                              className={cn(
+                                "text-[13px]",
+                                ele.name ? "text-text200" : "text-text100",
+                              )}>
+                              {ele.name}
+                            </p>
+                          </div>
+                          <div className={"flex items-center gap-2"}>
+                            {eleProspectName ? (
+                              <div
+                                className={
+                                  "flex h-[20px] items-center gap-1 rounded bg-bgHover100 p-1 opacity-80 hover:opacity-100"
+                                }>
+                                <Avatar
+                                  src={null}
+                                  alt={eleProspectName}
+                                  fallbackName={eleProspectName}
+                                  classNames={{
+                                    root: "w-[16px] h-[16px] text-[7px] rounded-[50%]",
+                                    fallback:
+                                      "w-[16px] h-[16px] text-[7px] rounded-[50%]",
+                                  }}
+                                />
+                                <p
+                                  className={
+                                    "line-clamp-1 max-w-[180px] overflow-hidden text-ellipsis text-wrap break-all text-[13px] text-text200"
+                                  }>
+                                  {eleProspectName}
+                                </p>
+                              </div>
+                            ) : null}
+                            <div className={"flex gap-2"}>
+                              <CalendarIcon
+                                size={"16"}
+                                color={
+                                  ele.dueDateTime &&
+                                  ele.dueDateTime !== "Invalid Date" &&
+                                  dayjs(ele.dueDateTime).isBefore(dayjs())
+                                    ? "#F93E3D"
+                                    : [AppTheme.LIGHT, AppTheme.PURPLE_LIGHT].includes(
+                                          theme,
+                                        )
+                                      ? "#333333"
+                                      : "#B3B3B3"
+                                }
+                              />
+                              {ele.dueDateTime !== "Invalid Date" ? (
+                                <p
+                                  className={cn(
+                                    "text-[13px] text-text200",
+                                    ele.dueDateTime &&
+                                      ele.dueDateTime !== "Invalid Date" &&
+                                      dayjs(ele.dueDateTime).isBefore(dayjs())
+                                      ? "text-[#F93E3D]"
+                                      : "",
+                                  )}>
+                                  {dayjs(ele.dueDateTime).format(
+                                    "DD MMM YYYY - HH:mm",
+                                  ) !== "Invalid Date"
+                                    ? dayjs(ele.dueDateTime).format(
+                                        "DD MMM YYYY - HH:mm",
+                                      )
+                                    : "-"}
+                                </p>
+                              ) : null}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+              {upcomingTasks.length > 0 ? (
+                <div className={"mt-[40px] w-full"}>
+                  <div className={"mb-[32px] flex gap-2"}>
+                    <h3 className={"text-[15px] font-bold text-text200"}>
+                      Upcoming Tasks
+                    </h3>
+                    <p className={"font-bold text-text300"}>{upcomingTasks.length}</p>
+                  </div>
+                  <div
+                    className={
+                      "h-fit w-[calc(100%-48px)] overflow-hidden rounded border border-solid border-border200 bg-bodySecondary"
+                    }>
+                    {upcomingTasks.map((ele, index) => {
+                      const eleProspect = prospects.find(
+                        (prospect) => prospect.id === ele.prospectId,
+                      );
+                      const eleProspectName = eleProspect?.fields.find(
+                        (ele) => ele.name === "name",
+                      )?.value;
+                      return (
+                        <div
+                          onClick={() => {
+                            setTasksState({ activeTaskId: ele.id });
+                            updateDrawerState(DrawerId.CREATE_TASK, { open: true });
+                          }}
+                          key={ele.name}
+                          className={cn(
+                            "flex h-[49px] w-full items-center justify-between px-4",
+                            index !== unscheduledTasks.length - 1
+                              ? "border-b border-solid border-border200"
+                              : "",
+                          )}>
+                          <div className={"flex items-center gap-2"}>
+                            <Checkbox
+                              onClick={(e) => e.stopPropagation()}
+                              checked={ele.isCompleted}
+                              setChecked={(_check) => {
+                                updateTask(ele.id, { isCompleted: _check });
+                              }}
+                              classNames={{
+                                root: cn(
+                                  "h-[16px] w-[16px] rounded-[100%] border-text200",
+                                  ele.isCompleted ? "border-none" : "",
+                                ),
+                              }}
+                            />
+                            <p
+                              className={cn(
+                                "text-[13px]",
+                                ele.name ? "text-text200" : "text-text100",
+                              )}>
+                              {ele.name}
+                            </p>
+                          </div>
+                          <div className={"flex items-center gap-2"}>
+                            {eleProspectName ? (
+                              <div
+                                className={
+                                  "flex h-[20px] items-center gap-1 rounded bg-bgHover100 p-1 opacity-80 hover:opacity-100"
+                                }>
+                                <Avatar
+                                  src={null}
+                                  alt={eleProspectName}
+                                  fallbackName={eleProspectName}
+                                  classNames={{
+                                    root: "w-[16px] h-[16px] text-[7px] rounded-[50%]",
+                                    fallback:
+                                      "w-[16px] h-[16px] text-[7px] rounded-[50%]",
+                                  }}
+                                />
+                                <p
+                                  className={
+                                    "line-clamp-1 max-w-[180px] overflow-hidden text-ellipsis text-wrap break-all text-[13px] text-text200"
+                                  }>
+                                  {eleProspectName}
+                                </p>
+                              </div>
+                            ) : null}
+                            <div className={"flex gap-2"}>
+                              <CalendarIcon
+                                size={"16"}
+                                color={
+                                  [AppTheme.LIGHT, AppTheme.PURPLE_LIGHT].includes(
+                                    theme,
+                                  )
+                                    ? "#333333"
+                                    : "#B3B3B3"
+                                }
+                              />
+                              {ele.dueDateTime !== "Invalid Date" ? (
+                                <p className={"text-[13px] text-text200"}>
+                                  {dayjs(ele.dueDateTime).format(
+                                    "DD MMM YYYY - HH:mm",
+                                  ) !== "Invalid Date"
+                                    ? dayjs(ele.dueDateTime).format(
+                                        "DD MMM YYYY - HH:mm",
+                                      )
+                                    : "-"}
+                                </p>
+                              ) : null}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+              {unscheduledTasks.length > 0 ? (
+                <div className={"mt-[40px] w-full"}>
+                  <div className={"mb-[32px] flex gap-2"}>
+                    <h3 className={"text-[15px] font-bold text-text200"}>
+                      Unscheduled Tasks
+                    </h3>
+                    <p className={"font-bold text-text300"}>
+                      {unscheduledTasks.length}
+                    </p>
+                  </div>
+                  <div
+                    className={
+                      "h-fit w-[calc(100%-48px)] overflow-hidden rounded border border-solid border-border200 bg-bodySecondary"
+                    }>
+                    {unscheduledTasks.map((ele, index) => {
+                      const eleProspect = prospects.find(
+                        (prospect) => prospect.id === ele.prospectId,
+                      );
+                      const eleProspectName = eleProspect?.fields.find(
+                        (ele) => ele.name === "name",
+                      )?.value;
+                      return (
+                        <div
+                          onClick={() => {
+                            setTasksState({ activeTaskId: ele.id });
+                            updateDrawerState(DrawerId.CREATE_TASK, { open: true });
+                          }}
+                          key={ele.name}
+                          className={cn(
+                            "flex h-[49px] w-full items-center justify-between px-4",
+                            index !== unscheduledTasks.length - 1
+                              ? "border-b border-solid border-border200"
+                              : "",
+                          )}>
+                          <div className={"flex items-center gap-2"}>
+                            <Checkbox
+                              onClick={(e) => e.stopPropagation()}
+                              checked={ele.isCompleted}
+                              setChecked={(_check) => {
+                                updateTask(ele.id, { isCompleted: _check });
+                              }}
+                              classNames={{
+                                root: cn(
+                                  "h-[16px] w-[16px] rounded-[100%] border-text200",
+                                  ele.isCompleted ? "border-none" : "",
+                                ),
+                              }}
+                            />
+                            <p
+                              className={cn(
+                                "text-[13px]",
+                                ele.name ? "text-text200" : "text-text100",
+                              )}>
+                              {ele.name}
+                            </p>
+                          </div>
+                          <div className={"flex items-center gap-2"}>
+                            {eleProspectName ? (
+                              <div
+                                className={
+                                  "flex h-[20px] items-center gap-1 rounded bg-bgHover100 p-1 opacity-80 hover:opacity-100"
+                                }>
+                                <Avatar
+                                  src={null}
+                                  alt={eleProspectName}
+                                  fallbackName={eleProspectName}
+                                  classNames={{
+                                    root: "w-[16px] h-[16px] text-[7px] rounded-[50%]",
+                                    fallback:
+                                      "w-[16px] h-[16px] text-[7px] rounded-[50%]",
+                                  }}
+                                />
+                                <p
+                                  className={
+                                    "line-clamp-1 max-w-[180px] overflow-hidden text-ellipsis text-wrap break-all text-[13px] text-text200"
+                                  }>
+                                  {eleProspectName}
+                                </p>
+                              </div>
+                            ) : null}
+                            <CalendarIcon
+                              size={"16"}
+                              color={
+                                [AppTheme.LIGHT, AppTheme.PURPLE_LIGHT].includes(theme)
+                                  ? "#333333"
+                                  : "#B3B3B3"
+                              }
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

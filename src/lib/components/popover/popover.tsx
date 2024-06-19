@@ -21,7 +21,6 @@ export interface IPopoverProps {
 export const Popover: FC<
   PropsWithChildren<IPopoverProps & ComponentProps<typeof PopoverContent>>
 > = ({ anchor, trigger, open, onOpenChange, children, ...rest }) => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [anchorRef, setAnchorRef] = useState<
     MutableRefObject<HTMLButtonElement | HTMLDivElement | null> | undefined
   >(anchor);
@@ -31,24 +30,6 @@ export const Popover: FC<
       setAnchorRef(anchor);
     }
   }, [anchor, open]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (screenWidth < 1024 && open) {
-      onOpenChange(false);
-    }
-  }, [open, screenWidth, onOpenChange]);
 
   return (
     <PopoverPrimitive.Root
@@ -63,7 +44,7 @@ export const Popover: FC<
         <PopoverPrimitive.Content
           {...rest}
           className={
-            "p-[0 !important] rounded-md border border-solid border-border100 bg-bodySecondary outline-none data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=top]:animate-slideDownAndFade"
+            "p-[0 !important] z-[2147483647] rounded-md border border-solid border-border100 bg-bodySecondary outline-none data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=top]:animate-slideDownAndFade"
           }>
           {children}
         </PopoverPrimitive.Content>

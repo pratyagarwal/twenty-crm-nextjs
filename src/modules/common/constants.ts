@@ -13,6 +13,7 @@ export enum DrawerId {
   PRIMARY_SIDENAV = "primarySidenav",
   SETTINGS_SIDENAV = "settingsSidenav",
   COMMAND_PALLETE = "commandPallete",
+  CREATE_TASK = "createTask",
 }
 
 export enum DropdownId {
@@ -24,6 +25,8 @@ export enum DropdownId {
   CELL_STRING = "cellString",
   CELL_URL = "cellUrl",
   CELL_EMAIL = "cellEmail",
+  DUE_DATE = "dueDate",
+  PROSPECTS = "prospects",
 }
 
 export enum FieldType {

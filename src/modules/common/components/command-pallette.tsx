@@ -42,7 +42,7 @@ export const CommandPallette: FC = () => {
           </div>
         ),
         actionFn: () => {
-          router.push("/tasks");
+          updateDrawerState(DrawerId.CREATE_TASK, { open: true });
         },
       },
       {
@@ -149,7 +149,7 @@ export const CommandPallette: FC = () => {
         };
       }),
     ];
-  }, [prospects, router, theme]);
+  }, [prospects, router, theme, updateDrawerState]);
 
   const [actionItems, setActionItems] = useState(allActionItems);
 

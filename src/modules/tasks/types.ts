@@ -4,5 +4,6 @@ export interface ITask {
   prospectId: string | null;
   dueDateTime: string | null;
   createdAt: string;
+  isCompleted: boolean;
   notes: string;
 }
