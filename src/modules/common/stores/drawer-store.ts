@@ -8,7 +8,7 @@ export interface IDrawerState {
 }
 
 export interface IDrawerStoreState {
-  State: Record<string, IDrawerState> | null;
+  state: Record<string, IDrawerState> | null;
 }
 
 export interface IDrawerStoreActions {
@@ -23,7 +23,7 @@ export interface IDrawerStoreActions {
 export const drawerStore = createInMemoryStore<IDrawerStoreState, IDrawerStoreActions>({
   name: "",
   initialState: {
-    State: {
+    state: {
       [DrawerId.PRIMARY_SIDENAV]: { open: true },
       [DrawerId.SETTINGS_SIDENAV]: { open: true },
       [DrawerId.COMMAND_PALLETE]: { open: false },
@@ -31,17 +31,17 @@ export const drawerStore = createInMemoryStore<IDrawerStoreState, IDrawerStoreAc
   },
   actions: (set, get) => ({
     getOrCreateDrawerState: (drawerId) => {
-      const existingDrawerState = get().State?.[drawerId];
+      const existingDrawerState = get().state?.[drawerId];
       if (existingDrawerState) {
         return existingDrawerState;
       } else {
         set((state) => {
-          if (state.State) {
-            state.State[drawerId] = {
+          if (state.state) {
+            state.state[drawerId] = {
               open: false,
             };
           } else {
-            state.State = {
+            state.state = {
               [drawerId]: {
                 open: false,
               },
@@ -49,24 +49,24 @@ export const drawerStore = createInMemoryStore<IDrawerStoreState, IDrawerStoreAc
           }
           return state;
         });
-        return get().State![drawerId];
+        return get().state![drawerId];
       }
     },
     removeDrawerState: (drawerId) => {
       set((state) => {
         return {
-          State: omit(state.State, drawerId),
+          state: omit(state.state, drawerId),
         };
       });
     },
     updateDrawerState: (drawerId, updatedDrawer) => {
       set((state) => {
-        return state.State?.[drawerId]
+        return state.state?.[drawerId]
           ? {
-              State: {
-                ...state.State,
+              state: {
+                ...state.state,
                 [drawerId]: {
-                  ...state.State[drawerId],
+                  ...state.state[drawerId],
                   ...updatedDrawer,
                 },
               },

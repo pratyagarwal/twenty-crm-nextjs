@@ -19,6 +19,10 @@ const config = {
       animation: {
         slideIn: "slideIn 200ms ease-out",
         slideOut: "slideOut 200ms ease-out",
+        slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideRightAndFade: "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideDownAndFade: "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideLeftAndFade: "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
         slideIn: {
@@ -28,6 +32,22 @@ const config = {
         slideOut: {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-100%)" },
+        },
+        slideUpAndFade: {
+          from: { opacity: "0", transform: "translateY(2px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        slideRightAndFade: {
+          from: { opacity: "0", transform: "translateX(-2px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+        slideDownAndFade: {
+          from: { opacity: "0", transform: "translateY(-2px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        slideLeftAndFade: {
+          from: { opacity: "0", transform: "translateX(2px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
         },
       },
     },
@@ -43,7 +63,9 @@ const config = {
         text300: "#B3B3B3",
         text400: "#999999",
         border100: "#EBEBEB",
+        border200: "#F1F1F1",
         bgHover100: "#0000000A",
+        activeCell: "#F5F9FD",
       },
       dark: {
         bodyPrimary: "#171717",
@@ -53,7 +75,9 @@ const config = {
         text300: "#666666",
         text400: "#818181",
         border100: "#333333",
+        border200: "#222222",
         bgHover100: "#FFFFFF0F",
+        activeCell: "#141A25",
       },
       purpleLight: {
         bodyPrimary: "#FFFFFF",
@@ -63,7 +87,9 @@ const config = {
         text300: "#B3B3B3",
         text400: "#999999",
         border100: "#EBEBEB",
+        border200: "#F1F1F1",
         bgHover100: "#0000000A",
+        activeCell: "#F5F9FD",
       },
       purpleDark: {
         bodyPrimary: "#1C1C2C",
@@ -73,7 +99,9 @@ const config = {
         text300: "#666666",
         text400: "#818181",
         border100: "#333333",
+        border200: "#222222",
         bgHover100: "#FFFFFF0F",
+        activeCell: "#141A25",
       },
     }),
   ],

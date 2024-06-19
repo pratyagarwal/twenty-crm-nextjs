@@ -51,7 +51,7 @@ export const SettingsSidenav: FC = () => {
       <div className={"fixed left-0 top-0 flex h-screen w-[40vw] justify-end"}>
         <div className={"w-[236px] pb-4 pl-2 pr-8 pt-[42px]"}>
           <Link
-            href={"/people"}
+            href={"/prospects"}
             className={
               "mb-3 flex h-8 w-full cursor-pointer flex-row items-center gap-2 p-1"
             }>

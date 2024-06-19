@@ -3,20 +3,17 @@ import { v4 } from "uuid";
 import { createInMemoryStore } from "~lib/storage/in-memory";
 import { IAuthUser, IWorkspace } from "~modules/common/types";
 
-export interface IWorkspaceUsersStoreState {
+export interface IAuthStoreState {
   workspace: IWorkspace;
   authUser: IAuthUser;
 }
 
-export interface IWorkspaceUsersStoreActions {
+export interface IAuthStoreActions {
   setAuthUser: (user: Partial<IAuthUser>) => void;
   setWorkspace: (workspace: Partial<IWorkspace>) => void;
 }
 
-export const authStore = createInMemoryStore<
-  IWorkspaceUsersStoreState,
-  IWorkspaceUsersStoreActions
->({
+export const authStore = createInMemoryStore<IAuthStoreState, IAuthStoreActions>({
   name: "auth",
   initialState: {
     workspace: {
@@ -47,4 +44,4 @@ export const authStore = createInMemoryStore<
   }),
 });
 
-mountStoreDevtool("WorkspaceUserStore", authStore);
+mountStoreDevtool("authStore", authStore);

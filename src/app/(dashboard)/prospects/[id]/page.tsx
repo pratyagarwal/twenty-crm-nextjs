@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Page as ProspectPage } from "~modules/people/views/people/routes/[id]";
+import { Page as ProspectPage } from "~modules/prospects/views/prospects/routes/[id]";
 
 interface IPageProps {
   params: {

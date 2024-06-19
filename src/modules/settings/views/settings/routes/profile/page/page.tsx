@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FileUploadIcon, TrashIcon, UploadIcon } from "~lib/assets";

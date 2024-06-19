@@ -6,7 +6,7 @@ export const config = {
 };
 export default function middleware(request: NextRequest) {
   if (request.nextUrl.pathname === "/") {
-    return NextResponse.rewrite(new URL("/people", request.url));
+    return NextResponse.rewrite(new URL("/prospects", request.url));
   }
   if (request.nextUrl.pathname === "/settings") {
     return NextResponse.rewrite(new URL("/settings/profile", request.url));

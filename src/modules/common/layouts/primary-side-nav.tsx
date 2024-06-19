@@ -20,7 +20,7 @@ export const PrimarySideNav: FC = () => {
   const { workspace, authUser } = authStore();
 
   const [selectedNavItem, setSelectedNavItem] = useState(
-    pathName !== "/" ? pathName.slice(1) : "people",
+    pathName !== "/" ? pathName.slice(1) : "prospects",
   );
   const [hovered, setHovered] = useState(false);
   const { updateDrawerState, getOrCreateDrawerState } = drawerStore();
@@ -38,7 +38,7 @@ export const PrimarySideNav: FC = () => {
     {
       label: "Workspace",
       items: [
-        { icon: UserIcon, text: "People" },
+        { icon: UserIcon, text: "Prospects" },
         { icon: BuildingIcon, text: "Companies" },
       ],
     },
