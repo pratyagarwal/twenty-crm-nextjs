@@ -78,6 +78,7 @@ export const SettingsSidenav: FC = () => {
                           key={`nav-section-item-${sectionIndex}-${itemIndex}`}
                           href={`/settings/${item.text.toLowerCase()}`}>
                           <SideNavItem
+                            itemShortCut={""}
                             icon={item.icon}
                             itemText={item.text}
                             isActive={selectedNavItem === item.text.toLowerCase()}

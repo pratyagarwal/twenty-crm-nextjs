@@ -7,12 +7,13 @@ import { FC, useState } from "react";
 import { BuildingIcon, CollapseLeftIcon, FiberLogo } from "~lib/assets";
 import { CheckboxIcon, SearchIcon, SettingsIcon, UserIcon } from "~lib/assets/icons";
 import { Drawer } from "~lib/components";
+import { Avatar } from "~lib/components/avatar";
 import { AppTheme, themeStore } from "~lib/theme";
 import { cn } from "~lib/utils";
 import { SideNavItem } from "~modules/common/components";
 import { DrawerId } from "~modules/common/constants";
-import { drawerStore } from "~modules/common/stores/drawer-store";
 import { authStore } from "~modules/common/stores/auth-store";
+import { drawerStore } from "~modules/common/stores/drawer-store";
 
 export const PrimarySideNav: FC = () => {
   const pathName = usePathname();
@@ -30,16 +31,16 @@ export const PrimarySideNav: FC = () => {
     {
       label: "",
       items: [
-        { icon: SearchIcon, text: "Search" },
-        { icon: SettingsIcon, text: "Settings" },
-        { icon: CheckboxIcon, text: "Tasks" },
+        { icon: SearchIcon, text: "Search", shortcut: "⌘ K" },
+        { icon: SettingsIcon, text: "Settings", shortcut: "G S" },
+        { icon: CheckboxIcon, text: "Tasks", shortcut: "G T" },
       ],
     },
     {
       label: "Workspace",
       items: [
-        { icon: UserIcon, text: "Prospects" },
-        { icon: BuildingIcon, text: "Companies" },
+        { icon: UserIcon, text: "Prospects", shortcut: "G P" },
+        { icon: BuildingIcon, text: "Companies", shortcut: "" },
       ],
     },
   ];
@@ -105,10 +106,13 @@ export const PrimarySideNav: FC = () => {
                   {navSection.items.map((item, itemIndex) => {
                     return (
                       <Link
-                        onClick={() =>
+                        onClick={() => {
+                          if ("Search" === item.text) {
+                            updateDrawerState(DrawerId.COMMAND_PALLETE, { open: true });
+                          }
                           !["Search", "Companies"].includes(item.text) &&
-                          setSelectedNavItem(item.text.toLowerCase())
-                        }
+                            setSelectedNavItem(item.text.toLowerCase());
+                        }}
                         key={`nav-section-item-${sectionIndex}-${itemIndex}`}
                         href={
                           !["Search", "Companies"].includes(item.text)
@@ -118,6 +122,7 @@ export const PrimarySideNav: FC = () => {
                         <SideNavItem
                           icon={item.icon}
                           itemText={item.text}
+                          itemShortCut={item.shortcut}
                           isActive={selectedNavItem === item.text.toLowerCase()}
                         />
                       </Link>
@@ -132,15 +137,16 @@ export const PrimarySideNav: FC = () => {
           className={
             "absolute bottom-[32px] left-[16px] flex flex-row items-center gap-2"
           }>
-          {authUser?.profile ? (
-            <Image
-              src={URL.createObjectURL(authUser.profile)}
-              alt={"user-profile"}
-              width={50}
-              height={50}
-              className={"h-[20px] w-[20px] rounded-[50%]"}
-            />
-          ) : null}
+          <Avatar
+            src={authUser.profile ? URL.createObjectURL(authUser.profile) : null}
+            alt={"user-profile"}
+            fallbackName={authUser.firstName}
+            classNames={{
+              root: "w-[24px] h-[24px] rounded-[50%]",
+              image: "w-[24px] h-[24px] rounded-[50%]",
+              fallback: "w-[24px] h-[24px] text-[16px] rounded-[50%]",
+            }}
+          />
           <p
             className={
               "text-[13px] font-medium text-text200"

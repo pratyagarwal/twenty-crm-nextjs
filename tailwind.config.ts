@@ -17,21 +17,31 @@ const config = {
     },
     extend: {
       animation: {
-        slideIn: "slideIn 200ms ease-out",
-        slideOut: "slideOut 200ms ease-out",
+        slideInLtr: "slideInLtr 200ms ease-out",
+        slideOutLtr: "slideOutLtr 200ms ease-out",
+        slideInRtl: "slideInRtl 200ms ease-out",
+        slideOutRtl: "slideOutRtl 200ms ease-out",
         slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideRightAndFade: "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideDownAndFade: "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideLeftAndFade: "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
-        slideIn: {
+        slideInLtr: {
           from: { transform: "translateX(-100%)" },
           to: { transform: "translateX(0)" },
         },
-        slideOut: {
+        slideOutLtr: {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-100%)" },
+        },
+        slideInRtl: {
+          from: { transform: "translateX(100%)" },
+          to: { transform: "translateX(0)" },
+        },
+        slideOutRtl: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(100%)" },
         },
         slideUpAndFade: {
           from: { opacity: "0", transform: "translateY(2px)" },

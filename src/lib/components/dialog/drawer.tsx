@@ -8,6 +8,7 @@ export interface IDrawerProps {
   trigger: ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  orientation?: "ltr" | "rtl";
   isBackgroundInteractive?: boolean;
   isEscapeKeyDisabled?: boolean;
   classNames?: {
@@ -21,6 +22,7 @@ export const Drawer: FC<PropsWithChildren<IDrawerProps>> = ({
   onOpenChange,
   isBackgroundInteractive,
   isEscapeKeyDisabled,
+  orientation = "ltr",
   classNames,
   children,
 }) => {
@@ -42,10 +44,13 @@ export const Drawer: FC<PropsWithChildren<IDrawerProps>> = ({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className={"fixed inset-0 bg-[#000] opacity-[0.2]"} />
         <DialogPrimitive.Content
+          onOpenAutoFocus={(e) => e.preventDefault()}
           onEscapeKeyDown={(e) => isEscapeKeyDisabled && e.preventDefault()}
           onInteractOutside={(e) => isBackgroundInteractive && e.preventDefault()}
           className={cn(
-            "fixed left-0 top-0 z-[999999] outline-none data-[state=closed]:animate-slideOut data-[state=open]:animate-slideIn",
+            orientation === "ltr"
+              ? "fixed left-0 top-0 z-[999999] outline-none data-[state=closed]:animate-slideOutLtr data-[state=open]:animate-slideInLtr"
+              : "fixed right-0 top-0 z-[999999] outline-none data-[state=closed]:animate-slideOutRtl data-[state=open]:animate-slideInRtl",
             classNames?.content,
           )}>
           {children}
