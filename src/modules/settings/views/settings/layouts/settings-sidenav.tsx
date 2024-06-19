@@ -12,7 +12,6 @@ import { drawerStore } from "~modules/common/stores/drawer-store";
 
 export const SettingsSidenav: FC = () => {
   const pathName = usePathname();
-  console.log("pathName");
   const [selectedNavItem, setSelectedNavItem] = useState(
     pathName !== "/settings" ? pathName.split("/settings/")[1] : "profile",
   );
@@ -33,8 +32,6 @@ export const SettingsSidenav: FC = () => {
       items: [{ icon: SettingsIcon, text: "General" }],
     },
   ];
-
-  console.log("sel", selectedNavItem);
 
   return (
     <Drawer

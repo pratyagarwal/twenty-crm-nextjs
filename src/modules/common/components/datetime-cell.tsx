@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { usePathname } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { DateTimePicker } from "~lib/components/datetime-picker/datetime-picker";
 import { cn } from "~lib/utils";
@@ -24,6 +25,7 @@ export const DatetimeCell: FC<IDatetimeCellProps> = ({
   updateProspectField,
   isSelected = false,
 }) => {
+  const pathname = usePathname();
   const { getOrCreateDropdownState, updateDropdownState } = dropdownStore();
   const { open } = getOrCreateDropdownState(
     `${DropdownId.CELL_DATETIME}-${prospectId}`,
@@ -46,8 +48,11 @@ export const DatetimeCell: FC<IDatetimeCellProps> = ({
         trigger={
           <div
             className={cn(
-              "box-border flex h-[32px] min-w-[200px] items-center border-b border-r border-solid border-border200 p-2",
+              "box-border flex h-[32px] min-w-[200px] items-center p-2",
               isSelected ? "bg-activeCell" : "",
+              pathname === "/prospects"
+                ? "border-b border-r border-solid border-border200"
+                : "",
             )}>
             <p
               className={

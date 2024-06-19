@@ -48,7 +48,7 @@ export const Tabs: FC<ITabs> = ({ selectedTabId, tabs }) => {
             {selectedTabId === tab.id ? (
               <div
                 className={
-                  "absolute bottom-[-8px] left-0 h-[0.5px] w-[65px] bg-text200"
+                  "absolute bottom-[-8px] left-[50%] h-[0.5px] w-[65px] translate-x-[-50%] bg-text200"
                 }
               />
             ) : null}

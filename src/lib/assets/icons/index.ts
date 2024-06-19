@@ -24,3 +24,4 @@ export * from "./united-states-icon";
 export * from "./india-icon";
 export * from "./copy-icon";
 export * from "./archive-icon";
+export * from "./note-icon";

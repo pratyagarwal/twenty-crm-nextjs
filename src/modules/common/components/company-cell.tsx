@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { FC, useEffect, useMemo, useState } from "react";
 import { cn } from "~lib/utils";
 import { CompanyDropdown } from "~modules/common/components/company-dropdown";
@@ -23,6 +24,7 @@ export const CompanyCell: FC<ICompanyCellProps> = ({
   updateProspectField,
   isSelected = false,
 }) => {
+  const pathname = usePathname();
   const [selectedCompanyId, setSelectedCompanyId] = useState(
     Companies.find((company) => company.name.toLowerCase() === fieldValue.toLowerCase())
       ?.id ?? null,
@@ -49,8 +51,11 @@ export const CompanyCell: FC<ICompanyCellProps> = ({
         trigger={
           <div
             className={cn(
-              "box-border flex h-[32px] min-w-[200px] items-center gap-2 border-b border-r border-solid border-border200 p-2",
+              "box-border flex h-[32px] min-w-[200px] items-center gap-2 p-2",
               isSelected ? "bg-activeCell" : "",
+              pathname === "/prospects"
+                ? "border-b border-r border-solid border-border200"
+                : "",
             )}>
             {selectedCompany?.url ? (
               <Image

@@ -30,7 +30,6 @@ export const prospectsStore = createInMemoryStore<
   },
   actions: (set) => ({
     addProspect: (name) => {
-      console.log("prospects", name);
       set((state) => {
         const newState = { ...state };
         newState.prospects = [

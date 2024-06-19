@@ -32,9 +32,7 @@ export const Page: FC = () => {
   const [lastName, setLastName] = useState("");
 
   const [selectedProspectIds, setSelectedProspectIds] = useState<string[]>([]);
-  console.log("prospects2", prospects);
   const tableData = useMemo(() => {
-    console.log("prospects", prospects);
     const tableData: Record<string, string>[] = [];
 
     prospects.forEach((prospect) => {
@@ -52,8 +50,6 @@ export const Page: FC = () => {
 
     return tableData;
   }, [prospects]);
-
-  console.log("tableData", tableData);
 
   const isAllSelected = useMemo(() => {
     return prospects.every((prospect) => selectedProspectIds.includes(prospect.id));

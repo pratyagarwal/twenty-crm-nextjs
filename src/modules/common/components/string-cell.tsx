@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
 import { CopyIcon } from "~lib/assets";
 import { Popover } from "~lib/components/popover";
@@ -25,6 +26,7 @@ export const StringCell: FC<IStringCellProps> = ({
   updateProspectField,
   isSelected = false,
 }) => {
+  const pathname = usePathname();
   const { theme } = themeStore();
   const { getOrCreateDropdownState, updateDropdownState } = dropdownStore();
   const { open } = getOrCreateDropdownState(
@@ -51,8 +53,11 @@ export const StringCell: FC<IStringCellProps> = ({
         trigger={
           <div
             className={cn(
-              "box-border flex h-[32px] min-w-[200px] items-center border-b border-r border-solid border-border200 p-2",
+              "box-border flex h-[32px] min-w-[200px] items-center p-2",
               isSelected ? "bg-activeCell" : "",
+              pathname === "/prospects"
+                ? "border-b border-r border-solid border-border200"
+                : "",
             )}>
             <p
               className={
