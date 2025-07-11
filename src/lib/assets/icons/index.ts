@@ -4,7 +4,7 @@ export * from "./profile-icon";
 export * from "./settings-icon";
 export * from "./collapse-left-icon";
 export * from "./collapse-right-icon";
-export * from "./linkedin-icon";
+export * from "./twitter-icon";
 export * from "./email-icon";
 export * from "./phone-icon";
 export * from "./user-icon";

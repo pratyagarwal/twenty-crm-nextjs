@@ -3,7 +3,7 @@ import {
   CalendarIcon,
   CubeIcon,
   EmailIcon,
-  LinkedinIcon,
+  TwitterIcon,
   MapIcon,
   PhoneIcon,
   SuitcaseIcon,
@@ -26,8 +26,8 @@ export const getFilterIconByName = (name: string) => {
       return MapIcon;
     case "jobTitle":
       return SuitcaseIcon;
-    case "linkedin":
-      return LinkedinIcon;
+    case "twitter":
+      return TwitterIcon;
     default:
       return CubeIcon;
   }
