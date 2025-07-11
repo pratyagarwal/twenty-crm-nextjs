@@ -285,15 +285,15 @@ export const Page: FC<IPageProps> = ({ id }) => {
           </div>
           <div
             className={
-              "flex h-[240px] w-full flex-col gap-1 border-b border-solid border-border200 p-3"
+              "flex flex-1 w-full flex-col gap-1 border-b border-solid border-border200 p-4 overflow-y-auto"
             }>
             {prospectData.map((field) => {
               const Icon = field.icon;
               return (
-                <div key={field.name} className={"flex flex-row gap-1"}>
+                <div key={field.name} className={"flex flex-row gap-1 mb-2"}>
                   <div
                     className={
-                      "text box-border flex h-[32px] min-w-[150px] items-center gap-2 p-2"
+                      "text box-border flex h-[36px] min-w-[140px] items-center gap-2 px-2 py-1"
                     }>
                     <Icon
                       size={"16px"}
@@ -320,8 +320,8 @@ export const Page: FC<IPageProps> = ({ id }) => {
               );
             })}
           </div>
-          <div className={"p-3"}>
-            <p className={"mb-2 text-[13px] text-text200"}>Company</p>
+          <div className={"p-4 mt-2"}>
+            <p className={"mb-3 text-[13px] text-text200"}>Company</p>
             <CompanyCell
               fieldName={"company"}
               fieldValue={curPospectCompany?.name ?? ""}
