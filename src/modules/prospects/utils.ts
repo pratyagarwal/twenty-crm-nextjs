@@ -3,10 +3,10 @@ import {
   CalendarIcon,
   CubeIcon,
   EmailIcon,
-  TwitterIcon,
   MapIcon,
   PhoneIcon,
   SuitcaseIcon,
+  TwitterIcon,
   UserIcon,
 } from "~lib/assets";
 
