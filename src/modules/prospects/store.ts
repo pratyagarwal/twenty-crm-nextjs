@@ -48,7 +48,7 @@ export const prospectsStore = createInMemoryStore<
                 value: dayjs().format(),
               },
               {
-                name: "linkedin",
+                name: "twitter",
                 type: FieldType.URL,
                 value: "",
               },
