@@ -7,6 +7,7 @@ import {
   MapIcon,
   PhoneIcon,
   SuitcaseIcon,
+  TwitterIcon,
   UserIcon,
 } from "~lib/assets";
 
@@ -28,6 +29,8 @@ export const getFilterIconByName = (name: string) => {
       return SuitcaseIcon;
     case "linkedin":
       return LinkedinIcon;
+    case "twitter":
+      return TwitterIcon;
     default:
       return CubeIcon;
   }

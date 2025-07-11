@@ -105,6 +105,8 @@ export const Page: FC = () => {
         return "Job Title";
       case "linkedin":
         return "Linkedin";
+      case "twitter":
+        return "Twitter";
       default:
         return `${name[0].toUpperCase()}${name.slice(1)}`;
     }

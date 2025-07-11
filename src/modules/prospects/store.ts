@@ -52,6 +52,11 @@ export const prospectsStore = createInMemoryStore<
                 type: FieldType.URL,
                 value: "",
               },
+              {
+                name: "twitter",
+                type: FieldType.URL,
+                value: "",
+              },
             ],
           },
           ...newState.prospects,

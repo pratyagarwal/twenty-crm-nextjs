@@ -22,6 +22,11 @@ export const Prospects: { id: string; fields: IField[] }[] = [
         type: FieldType.URL,
         value: "https://www.linkedin.com/in/pratyush-agarwal-/",
       },
+      {
+        name: "twitter",
+        type: FieldType.URL,
+        value: "https://twitter.com/pratyush_ag",
+      },
     ],
   },
   {
@@ -42,6 +47,11 @@ export const Prospects: { id: string; fields: IField[] }[] = [
         name: "linkedin",
         type: FieldType.URL,
         value: "https://www.linkedin.com/in/pratyush-agarwal-/",
+      },
+      {
+        name: "twitter",
+        type: FieldType.URL,
+        value: "https://twitter.com/imVkohli",
       },
     ],
   },
@@ -64,6 +74,11 @@ export const Prospects: { id: string; fields: IField[] }[] = [
         type: FieldType.URL,
         value: "https://www.linkedin.com/in/pratyush-agarwal-/",
       },
+      {
+        name: "twitter",
+        type: FieldType.URL,
+        value: "https://twitter.com/stevejobs",
+      },
     ],
   },
   {
@@ -84,6 +99,11 @@ export const Prospects: { id: string; fields: IField[] }[] = [
         name: "linkedin",
         type: FieldType.URL,
         value: "https://www.linkedin.com/in/pratyush-agarwal-/",
+      },
+      {
+        name: "twitter",
+        type: FieldType.URL,
+        value: "https://twitter.com/elonmusk",
       },
     ],
   },

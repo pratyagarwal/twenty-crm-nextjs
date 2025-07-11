@@ -72,6 +72,12 @@ export const Page: FC<IPageProps> = ({ id }) => {
         value: curProspect?.fields.find((ele) => ele.name === "linkedin")?.value ?? "",
       },
       {
+        name: "twitter",
+        icon: getFilterIconByName("twitter"),
+        type: FieldType.URL,
+        value: curProspect?.fields.find((ele) => ele.name === "twitter")?.value ?? "",
+      },
+      {
         name: "phone",
         icon: getFilterIconByName("name"),
         type: FieldType.PHONE,
@@ -130,6 +136,8 @@ export const Page: FC<IPageProps> = ({ id }) => {
         return "Job Title";
       case "linkedin":
         return "Linkedin";
+      case "twitter":
+        return "Twitter";
       default:
         return `${name[0].toUpperCase()}${name.slice(1)}`;
     }
